@@ -119,7 +119,7 @@ module spi_master
    sri #(.DATA_WIDTH(DATA_WIDTH)) sri[NUM_PORTS-1:0]
      (.clk(clk),
       .resetb(resetb),
-      .datai(half_cycle_n ? datai : {datai[7:0], 8'b0}),
+      .datai(half_cycle_n ? datai : {datai[DATA_WIDTH/2-1:0], {DATA_WIDTH/2{1'b0}}}),
       .sample(go && (state == IDLE_STATE)), // we condition on state so that if the user holds 'go' high, this will sample only at the start of the transfer
       .shift(pulse && !csb && (shift_count[0] == 1)),
       .din(din));
